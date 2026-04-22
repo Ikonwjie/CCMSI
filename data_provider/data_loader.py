@@ -39,6 +39,19 @@ except Exception:
             return values * self.scale_ + self.mean_
 
 
+def _apply_deterministic_gaussian_noise(seq_x, noise_factor=0.0, noise_seed=2025, index=0):
+    """在评估阶段对输入窗口添加可复现的高斯噪声。"""
+    noise_factor = float(noise_factor)
+    if noise_factor <= 0:
+        return seq_x
+
+    seq_x_array = np.asarray(seq_x)
+    rng = np.random.default_rng(int(noise_seed) + int(index))
+    noise = rng.normal(loc=0.0, scale=noise_factor, size=seq_x_array.shape)
+    noise = noise.astype(seq_x_array.dtype, copy=False)
+    return seq_x_array + noise
+
+
 def _get_default_split_borders(data_path, total_len, seq_len):
     filename = os.path.basename(str(data_path))
 
@@ -71,6 +84,8 @@ class Dataset_ETT_hour(Dataset):
         freq="h",
         percent=100,
         seasonal_patterns=None,
+        test_noise_factor=0.0,
+        test_noise_seed=2025,
     ):
         if size is None:
             self.seq_len = 24 * 4 * 4
@@ -91,6 +106,9 @@ class Dataset_ETT_hour(Dataset):
         self.scale = scale
         self.timeenc = timeenc
         self.freq = freq
+        self.test_noise_factor = float(test_noise_factor)
+        self.test_noise_seed = int(test_noise_seed)
+        self.enable_test_noise = self.set_type == 2 and self.test_noise_factor > 0
 
         self.root_path = root_path
         self.data_path = data_path
@@ -164,6 +182,14 @@ class Dataset_ETT_hour(Dataset):
         seq_x_mark = self.data_stamp[s_begin:s_end]
         seq_y_mark = self.data_stamp[r_begin:r_end]
 
+        if self.enable_test_noise:
+            seq_x = _apply_deterministic_gaussian_noise(
+                seq_x,
+                noise_factor=self.test_noise_factor,
+                noise_seed=self.test_noise_seed,
+                index=index,
+            )
+
         return seq_x, seq_y, seq_x_mark, seq_y_mark
 
     def __len__(self):
@@ -188,6 +214,8 @@ class Dataset_ETT_minute(Dataset):
         freq="t",
         percent=100,
         seasonal_patterns=None,
+        test_noise_factor=0.0,
+        test_noise_seed=2025,
     ):
         if size is None:
             self.seq_len = 24 * 4 * 4
@@ -208,6 +236,9 @@ class Dataset_ETT_minute(Dataset):
         self.scale = scale
         self.timeenc = timeenc
         self.freq = freq
+        self.test_noise_factor = float(test_noise_factor)
+        self.test_noise_seed = int(test_noise_seed)
+        self.enable_test_noise = self.set_type == 2 and self.test_noise_factor > 0
 
         self.root_path = root_path
         self.data_path = data_path
@@ -282,6 +313,14 @@ class Dataset_ETT_minute(Dataset):
         seq_x_mark = self.data_stamp[s_begin:s_end]
         seq_y_mark = self.data_stamp[r_begin:r_end]
 
+        if self.enable_test_noise:
+            seq_x = _apply_deterministic_gaussian_noise(
+                seq_x,
+                noise_factor=self.test_noise_factor,
+                noise_seed=self.test_noise_seed,
+                index=index,
+            )
+
         return seq_x, seq_y, seq_x_mark, seq_y_mark
 
     def __len__(self):
@@ -306,6 +345,8 @@ class Dataset_Custom(Dataset):
         freq="h",
         percent=100,
         seasonal_patterns=None,
+        test_noise_factor=0.0,
+        test_noise_seed=2025,
     ):
         if size is None:
             self.seq_len = 24 * 4 * 4
@@ -326,6 +367,9 @@ class Dataset_Custom(Dataset):
         self.timeenc = timeenc
         self.freq = freq
         self.percent = percent
+        self.test_noise_factor = float(test_noise_factor)
+        self.test_noise_seed = int(test_noise_seed)
+        self.enable_test_noise = self.set_type == 2 and self.test_noise_factor > 0
 
         self.root_path = root_path
         self.data_path = data_path
@@ -396,6 +440,14 @@ class Dataset_Custom(Dataset):
         seq_x_mark = self.data_stamp[s_begin:s_end]
         seq_y_mark = self.data_stamp[r_begin:r_end]
 
+        if self.enable_test_noise:
+            seq_x = _apply_deterministic_gaussian_noise(
+                seq_x,
+                noise_factor=self.test_noise_factor,
+                noise_seed=self.test_noise_seed,
+                index=index,
+            )
+
         return seq_x, seq_y, seq_x_mark, seq_y_mark
 
     def __len__(self):
@@ -422,6 +474,8 @@ class Dataset_Multivariate(Dataset):
         seasonal_patterns=None,
         use_pregenerated=False,
         pregenerated_path=None,
+        test_noise_factor=0.0,
+        test_noise_seed=2025,
     ):
         if size is None:
             self.seq_len = 512
@@ -443,6 +497,9 @@ class Dataset_Multivariate(Dataset):
         self.scale = scale
         self.timeenc = timeenc
         self.freq = freq
+        self.test_noise_factor = float(test_noise_factor)
+        self.test_noise_seed = int(test_noise_seed)
+        self.enable_test_noise = self.set_type == 2 and self.test_noise_factor > 0
 
         self.root_path = root_path
         self.data_path = data_path
@@ -547,6 +604,14 @@ class Dataset_Multivariate(Dataset):
         seq_y = self.data_y[r_begin:r_end]
         seq_x_mark = self.data_stamp[s_begin:s_end]
         seq_y_mark = self.data_stamp[r_begin:r_end]
+
+        if self.enable_test_noise:
+            seq_x = _apply_deterministic_gaussian_noise(
+                seq_x,
+                noise_factor=self.test_noise_factor,
+                noise_seed=self.test_noise_seed,
+                index=index,
+            )
         
         # 如果使用预生成的数据，返回对应的 prompts 和 text_embeddings
         if self.use_pregenerated and self.pregenerated_data is not None:

@@ -84,6 +84,8 @@ def data_provider(args, flag, multivariate=False):
         freq=freq,
         percent=percent,
         seasonal_patterns=args.seasonal_patterns if hasattr(args, 'seasonal_patterns') else None,
+        test_noise_factor=getattr(args, "test_noise_factor", 0.0),
+        test_noise_seed=getattr(args, "test_noise_seed", 2025),
     )
     
     # 如果是多变量数据集且使用预生成数据，添加额外参数
