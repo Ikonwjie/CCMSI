@@ -1,10 +1,10 @@
 # CCMSI
 
-## 1. 环境
+## 1. Environment
 
-### 环境初始化
+### Environment Setup
 
-在本目录执行：
+Run the following commands from this directory:
 
 ```bash
 conda env create -f environment.yml
@@ -16,28 +16,28 @@ hf download meta-llama/Llama-2-7b-hf --local-dir weights/Llama-2-7b-hf
 python scripts/prepare_gpt2.py
 ```
 
-### Linux 启动环境
+### Running on Linux
 
-环境与依赖使用 `environment.yml`、`requirements.txt` 和 `requirements-verified.txt`。
-环境名为 `ccmsi-reproduction`，Python 版本为 3.12.7。
-启动脚本使用当前激活环境的 `python`，也可通过 `PYTHON` 环境变量指定解释器；不绑定个人安装路径，不自动创建环境或安装依赖。
+The environment and dependencies are specified in `environment.yml`, `requirements.txt`, and `requirements-verified.txt`.
+The environment is named `ccmsi-reproduction` and uses Python 3.12.7.
+The launch scripts use `python` from the active environment. You can also specify an interpreter through the `PYTHON` environment variable. The scripts do not depend on user-specific installation paths or automatically create environments or install dependencies.
 
-### 参考硬件
+### Reference Hardware
 
-以下为开发机器配置，不是运行所必需的硬件规格。
+The following specifications describe the development machine; they are not hardware requirements for running the code.
 
-| 项目 | 配置 |
+| Component | Specification |
 | --- | --- |
 | CPU | 2 × Intel Xeon Platinum 8358 @ 2.60 GHz |
-| CPU 核心 | 共 64 物理核心、128 逻辑线程 |
-| 内存 | Linux 显示约 251 GiB |
-| GPU | 4 × NVIDIA GeForce RTX 4090，编号 0–3 |
-| 单卡显存 | 24564 MiB（约 24 GiB） |
-| NVIDIA 驱动 | 570.211.01 |
+| CPU cores | 64 physical cores and 128 logical threads in total |
+| System memory | Approximately 251 GiB reported by Linux |
+| GPU | 4 × NVIDIA GeForce RTX 4090, indexed 0–3 |
+| Memory per GPU | 24564 MiB (approximately 24 GiB) |
+| NVIDIA driver | 570.211.01 |
 
-## 2. 数据
+## 2. Data
 
-在本目录执行以下命令，下载论文使用的全部数据集。ETT 命令一次下载 ETTh1、ETTh2、ETTm1、ETTm2：
+Run the following commands from this directory to download all datasets used in the paper. The ETT command downloads ETTh1, ETTh2, ETTm1, and ETTm2 together:
 
 ```bash
 python scripts/prepare_data.py --dataset ETT
@@ -47,43 +47,40 @@ python scripts/prepare_data.py --dataset Traffic
 python scripts/prepare_data.py --dataset M4
 ```
 
-数据自动保存到对应的 `dataset/` 子目录；脚本记录下载源版本和文件 SHA-256，且不会覆盖已有文件。将 Naive2 压缩包解压为 `dataset/m4/submission-Naive2.csv`。数据来源与预处理见 [数据说明](docs/DATA.md)。
+Data are saved automatically to the corresponding subdirectories under `dataset/`. The script records the source revision and the SHA-256 hash of each file without overwriting existing files. Extract the Naive2 archive to `dataset/m4/submission-Naive2.csv`. See the [data documentation](docs/DATA.md) for data sources and preprocessing details.
 
-## 3. 任务与命令
+## 3. Tasks and Commands
 
-| 实验 | 数据集 | 命令 |
-| --- | --- | --- |
-| 长期预测，H=96 | Traffic | `bash scripts/long_term_forecasting/Traffic_pl96.sh` |
-| 长期预测，四长度均值 | Traffic | `bash scripts/long_term_forecasting/run_all.sh` |
-| 短期预测 | M4 | `bash scripts/short_term_forecasting/M4.sh` |
-| 低数据预测，10%/25%/50% | Traffic | `bash scripts/low_data_forecasting/run_all.sh` |
-| GPT-2 模块消融 | Weather | `bash scripts/run_linux.sh run_batch.py --suite configs/suites/ablation.json` |
-
-
-
+| Experiment | Command |
+| --- | --- |
+| Long-term forecasting, H=96 | `bash scripts/long_term_forecasting/Traffic_pl96.sh` |
+| Long-term forecasting, mean over four horizons | `bash scripts/long_term_forecasting/run_all.sh` |
+| Short-term forecasting | `bash scripts/short_term_forecasting/M4.sh` |
+| Low-data forecasting, 10%/25%/50% | `bash scripts/low_data_forecasting/run_all.sh` |
+| GPT-2 module ablation on Weather | `bash scripts/run_linux.sh run_batch.py --suite configs/suites/ablation.json` |
 
 ```bash
 python run_experiment.py --config configs/long_term/Traffic_pl96.json
 ```
 
-运行结果保存在 `results/`，使用输出的批次目录名汇总：
+Run outputs are saved under `results/`. Aggregate them using the batch directory name reported by the run:
 
 ```bash
 python aggregate_results.py --manifest results/batches/<batch_id>/manifest.json
 ```
 
-### Linux 运行参数
+### Linux Runtime Options
 
 ```bash
 CUDA_VISIBLE_DEVICES=0 bash scripts/long_term_forecasting/Traffic_pl96.sh --dry-run
 ```
 
-## 4. 结果
+## 4. Results
 
-### 长期预测参考结果
+### Long-Term Forecasting Reference Results
 
-![长期预测四长度均值结果](assets/results/paper_table1_long_term.png)
+![Long-term forecasting results averaged over four horizons](assets/results/paper_table1_long_term.png)
 
-### M4 短期预测参考结果
+### M4 Short-Term Forecasting Reference Results
 
-![M4 短期预测结果](assets/results/paper_table2_m4.png)
+![M4 short-term forecasting results](assets/results/paper_table2_m4.png)

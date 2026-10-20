@@ -1,10 +1,10 @@
-# 参考指标
+# Reference Metrics
 
-本目录保存用于结果对照的预置指标，JSON/CSV 包含十种模型的数据。运行输出保存在 `results/`。
+This directory contains predefined reference metrics for result comparisons. The JSON/CSV files include data for ten models. Run outputs are saved under `results/`.
 
-## 长期预测四长度均值
+## Long-Term Forecasting: Mean over Four Horizons
 
-预测长度：96、192、336、720。
+Forecasting horizons: 96, 192, 336, and 720.
 
 | Dataset | MSE | MAE |
 | --- | --- | --- |
@@ -16,7 +16,7 @@
 | Electricity | 0.164 ± 0.001 | 0.254 ± 0.000 |
 | Traffic | 0.429 ± 0.007 | 0.279 ± 0.002 |
 
-## M4 短期预测
+## M4 Short-Term Forecasting
 
 | Subset | sMAPE | MASE | OWA |
 | --- | --- | --- | --- |
@@ -26,4 +26,4 @@
 | Others | 4.638 ± 0.078 | 3.079 ± 0.014 | 0.974 ± 0.010 |
 | Average | 11.742 ± 0.087 | 1.516 ± 0.035 | 0.829 ± 0.012 |
 
-`aggregate_results.py` 汇总运行结果，并输出与参考均值的差值。
+`aggregate_results.py` aggregates run results and reports their differences from the reference means.
