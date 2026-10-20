@@ -1,0 +1,8 @@
+name: ccmsi-reproduction
+channels:
+  - defaults
+dependencies:
+  - python=3.12.7
+  - pip
+  - pip:
+      - -r requirements-verified.txt

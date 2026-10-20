@@ -1,0 +1,23 @@
+{
+  "configs": [
+    "configs/long_term/Weather.json"
+  ],
+  "overrides": {
+    "pred_len": 96,
+    "output_dir": "results/ablation",
+    "recipe_status": "weather_core_module_ablation"
+  },
+  "grid": {
+    "ablation_module": [
+      "none",
+      "evidence_chain",
+      "selective_bridge",
+      "p2t_adapter"
+    ],
+    "seed": [
+      42,
+      43,
+      44
+    ]
+  }
+}

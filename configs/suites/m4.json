@@ -1,0 +1,17 @@
+{
+  "configs": [
+    "configs/m4/Yearly.json",
+    "configs/m4/Quarterly.json",
+    "configs/m4/Monthly.json",
+    "configs/m4/Weekly.json",
+    "configs/m4/Daily.json",
+    "configs/m4/Hourly.json"
+  ],
+  "grid": {
+    "seed": [
+      42,
+      43,
+      44
+    ]
+  }
+}

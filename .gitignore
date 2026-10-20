@@ -22,4 +22,5 @@ dataset/
 *.npz
 
 *.log
-
+weights/
+results/

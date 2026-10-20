@@ -1,0 +1,4 @@
+{
+  "extends": "Traffic.json",
+  "pred_len": 96
+}

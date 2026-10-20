@@ -1,0 +1,5 @@
+{
+  "extends": "../long_term/Traffic.json",
+  "task": "low_data",
+  "percent": 10
+}

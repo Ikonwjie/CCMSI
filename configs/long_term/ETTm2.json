@@ -1,0 +1,8 @@
+{
+  "extends": "../base.json",
+  "data": "ETTm2",
+  "root_path": "dataset/ETT-small",
+  "data_path": "ETTm2.csv",
+  "enc_in": 7,
+  "eval_batch_size": 16
+}

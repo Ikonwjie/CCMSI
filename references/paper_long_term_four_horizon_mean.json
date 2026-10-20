@@ -1,0 +1,796 @@
+{
+  "status": "reference_metrics",
+  "source_sha256": "6eeb3a3abc4c7f4d06aee1d459d878e8fb7458630af37e3e46204c02b6066bf5",
+  "table": "Table 1",
+  "source_page": 8,
+  "reported_runs": 3,
+  "std_kind": "sample standard deviation",
+  "ccmsi": {
+    "ETTh1": {
+      "MSE": {
+        "mean": 0.422,
+        "std": 0.004
+      },
+      "MAE": {
+        "mean": 0.427,
+        "std": 0
+      }
+    },
+    "ETTm1": {
+      "MSE": {
+        "mean": 0.37,
+        "std": 0.003
+      },
+      "MAE": {
+        "mean": 0.382,
+        "std": 0.002
+      }
+    },
+    "ETTh2": {
+      "MSE": {
+        "mean": 0.35,
+        "std": 0.002
+      },
+      "MAE": {
+        "mean": 0.39,
+        "std": 0.003
+      }
+    },
+    "ETTm2": {
+      "MSE": {
+        "mean": 0.27,
+        "std": 0.005
+      },
+      "MAE": {
+        "mean": 0.316,
+        "std": 0.002
+      }
+    },
+    "Weather": {
+      "MSE": {
+        "mean": 0.242,
+        "std": 0.001
+      },
+      "MAE": {
+        "mean": 0.272,
+        "std": 0.005
+      }
+    },
+    "Electricity": {
+      "MSE": {
+        "mean": 0.164,
+        "std": 0.001
+      },
+      "MAE": {
+        "mean": 0.254,
+        "std": 0
+      }
+    },
+    "Traffic": {
+      "MSE": {
+        "mean": 0.429,
+        "std": 0.007
+      },
+      "MAE": {
+        "mean": 0.279,
+        "std": 0.002
+      }
+    }
+  },
+  "all_models": {
+    "ETTh1": {
+      "CCMSI": {
+        "MSE": {
+          "mean": 0.422,
+          "std": 0.004
+        },
+        "MAE": {
+          "mean": 0.427,
+          "std": 0
+        }
+      },
+      "CALF": {
+        "MSE": {
+          "mean": 0.435,
+          "std": 0.004
+        },
+        "MAE": {
+          "mean": 0.431,
+          "std": 0.008
+        }
+      },
+      "Time-LLM": {
+        "MSE": {
+          "mean": 0.465,
+          "std": 0.005
+        },
+        "MAE": {
+          "mean": 0.455,
+          "std": 0.008
+        }
+      },
+      "GPT4TS": {
+        "MSE": {
+          "mean": 0.44,
+          "std": 0.004
+        },
+        "MAE": {
+          "mean": 0.435,
+          "std": 0.006
+        }
+      },
+      "PatchTST": {
+        "MSE": {
+          "mean": 0.457,
+          "std": 0.005
+        },
+        "MAE": {
+          "mean": 0.45,
+          "std": 0.003
+        }
+      },
+      "iTransformer": {
+        "MSE": {
+          "mean": 0.459,
+          "std": 0.008
+        },
+        "MAE": {
+          "mean": 0.451,
+          "std": 0.006
+        }
+      },
+      "Crossformer": {
+        "MSE": {
+          "mean": 0.626,
+          "std": 0.006
+        },
+        "MAE": {
+          "mean": 0.58,
+          "std": 0.003
+        }
+      },
+      "TimesNet": {
+        "MSE": {
+          "mean": 0.491,
+          "std": 0.003
+        },
+        "MAE": {
+          "mean": 0.474,
+          "std": 0.004
+        }
+      },
+      "MICN": {
+        "MSE": {
+          "mean": 0.514,
+          "std": 0.008
+        },
+        "MAE": {
+          "mean": 0.505,
+          "std": 0.005
+        }
+      },
+      "DLinear": {
+        "MSE": {
+          "mean": 0.453,
+          "std": 0.003
+        },
+        "MAE": {
+          "mean": 0.449,
+          "std": 0.006
+        }
+      }
+    },
+    "ETTm1": {
+      "CCMSI": {
+        "MSE": {
+          "mean": 0.37,
+          "std": 0.003
+        },
+        "MAE": {
+          "mean": 0.382,
+          "std": 0.002
+        }
+      },
+      "CALF": {
+        "MSE": {
+          "mean": 0.394,
+          "std": 0.006
+        },
+        "MAE": {
+          "mean": 0.393,
+          "std": 0.004
+        }
+      },
+      "Time-LLM": {
+        "MSE": {
+          "mean": 0.419,
+          "std": 0.003
+        },
+        "MAE": {
+          "mean": 0.415,
+          "std": 0.007
+        }
+      },
+      "GPT4TS": {
+        "MSE": {
+          "mean": 0.387,
+          "std": 0.003
+        },
+        "MAE": {
+          "mean": 0.402,
+          "std": 0.004
+        }
+      },
+      "PatchTST": {
+        "MSE": {
+          "mean": 0.388,
+          "std": 0.003
+        },
+        "MAE": {
+          "mean": 0.401,
+          "std": 0.003
+        }
+      },
+      "iTransformer": {
+        "MSE": {
+          "mean": 0.409,
+          "std": 0.004
+        },
+        "MAE": {
+          "mean": 0.412,
+          "std": 0.006
+        }
+      },
+      "Crossformer": {
+        "MSE": {
+          "mean": 0.506,
+          "std": 0.007
+        },
+        "MAE": {
+          "mean": 0.511,
+          "std": 0.003
+        }
+      },
+      "TimesNet": {
+        "MSE": {
+          "mean": 0.419,
+          "std": 0.005
+        },
+        "MAE": {
+          "mean": 0.42,
+          "std": 0.004
+        }
+      },
+      "MICN": {
+        "MSE": {
+          "mean": 0.4,
+          "std": 0.004
+        },
+        "MAE": {
+          "mean": 0.424,
+          "std": 0.007
+        }
+      },
+      "DLinear": {
+        "MSE": {
+          "mean": 0.403,
+          "std": 0.003
+        },
+        "MAE": {
+          "mean": 0.407,
+          "std": 0.003
+        }
+      }
+    },
+    "ETTh2": {
+      "CCMSI": {
+        "MSE": {
+          "mean": 0.35,
+          "std": 0.002
+        },
+        "MAE": {
+          "mean": 0.39,
+          "std": 0.003
+        }
+      },
+      "CALF": {
+        "MSE": {
+          "mean": 0.351,
+          "std": 0.007
+        },
+        "MAE": {
+          "mean": 0.385,
+          "std": 0.005
+        }
+      },
+      "Time-LLM": {
+        "MSE": {
+          "mean": 0.397,
+          "std": 0.005
+        },
+        "MAE": {
+          "mean": 0.415,
+          "std": 0.007
+        }
+      },
+      "GPT4TS": {
+        "MSE": {
+          "mean": 0.386,
+          "std": 0.006
+        },
+        "MAE": {
+          "mean": 0.411,
+          "std": 0.009
+        }
+      },
+      "PatchTST": {
+        "MSE": {
+          "mean": 0.374,
+          "std": 0.003
+        },
+        "MAE": {
+          "mean": 0.399,
+          "std": 0.007
+        }
+      },
+      "iTransformer": {
+        "MSE": {
+          "mean": 0.387,
+          "std": 0.004
+        },
+        "MAE": {
+          "mean": 0.41,
+          "std": 0.005
+        }
+      },
+      "Crossformer": {
+        "MSE": {
+          "mean": 0.948,
+          "std": 0.006
+        },
+        "MAE": {
+          "mean": 0.69,
+          "std": 0.004
+        }
+      },
+      "TimesNet": {
+        "MSE": {
+          "mean": 0.43,
+          "std": 0.008
+        },
+        "MAE": {
+          "mean": 0.433,
+          "std": 0.007
+        }
+      },
+      "MICN": {
+        "MSE": {
+          "mean": 0.602,
+          "std": 0.005
+        },
+        "MAE": {
+          "mean": 0.534,
+          "std": 0.003
+        }
+      },
+      "DLinear": {
+        "MSE": {
+          "mean": 0.519,
+          "std": 0.005
+        },
+        "MAE": {
+          "mean": 0.493,
+          "std": 0.005
+        }
+      }
+    },
+    "ETTm2": {
+      "CCMSI": {
+        "MSE": {
+          "mean": 0.27,
+          "std": 0.005
+        },
+        "MAE": {
+          "mean": 0.316,
+          "std": 0.002
+        }
+      },
+      "CALF": {
+        "MSE": {
+          "mean": 0.288,
+          "std": 0.007
+        },
+        "MAE": {
+          "mean": 0.323,
+          "std": 0.008
+        }
+      },
+      "Time-LLM": {
+        "MSE": {
+          "mean": 0.301,
+          "std": 0.006
+        },
+        "MAE": {
+          "mean": 0.348,
+          "std": 0.004
+        }
+      },
+      "GPT4TS": {
+        "MSE": {
+          "mean": 0.289,
+          "std": 0.006
+        },
+        "MAE": {
+          "mean": 0.333,
+          "std": 0.006
+        }
+      },
+      "PatchTST": {
+        "MSE": {
+          "mean": 0.291,
+          "std": 0.004
+        },
+        "MAE": {
+          "mean": 0.333,
+          "std": 0.003
+        }
+      },
+      "iTransformer": {
+        "MSE": {
+          "mean": 0.293,
+          "std": 0.004
+        },
+        "MAE": {
+          "mean": 0.335,
+          "std": 0.008
+        }
+      },
+      "Crossformer": {
+        "MSE": {
+          "mean": 1.222,
+          "std": 0.005
+        },
+        "MAE": {
+          "mean": 0.715,
+          "std": 0.007
+        }
+      },
+      "TimesNet": {
+        "MSE": {
+          "mean": 0.294,
+          "std": 0.006
+        },
+        "MAE": {
+          "mean": 0.33,
+          "std": 0.006
+        }
+      },
+      "MICN": {
+        "MSE": {
+          "mean": 0.341,
+          "std": 0.003
+        },
+        "MAE": {
+          "mean": 0.387,
+          "std": 0.007
+        }
+      },
+      "DLinear": {
+        "MSE": {
+          "mean": 0.337,
+          "std": 0.007
+        },
+        "MAE": {
+          "mean": 0.387,
+          "std": 0.007
+        }
+      }
+    },
+    "Weather": {
+      "CCMSI": {
+        "MSE": {
+          "mean": 0.242,
+          "std": 0.001
+        },
+        "MAE": {
+          "mean": 0.272,
+          "std": 0.005
+        }
+      },
+      "CALF": {
+        "MSE": {
+          "mean": 0.255,
+          "std": 0.005
+        },
+        "MAE": {
+          "mean": 0.279,
+          "std": 0.006
+        }
+      },
+      "Time-LLM": {
+        "MSE": {
+          "mean": 0.281,
+          "std": 0.007
+        },
+        "MAE": {
+          "mean": 0.3,
+          "std": 0.006
+        }
+      },
+      "GPT4TS": {
+        "MSE": {
+          "mean": 0.261,
+          "std": 0.005
+        },
+        "MAE": {
+          "mean": 0.282,
+          "std": 0.006
+        }
+      },
+      "PatchTST": {
+        "MSE": {
+          "mean": 0.267,
+          "std": 0.003
+        },
+        "MAE": {
+          "mean": 0.288,
+          "std": 0.004
+        }
+      },
+      "iTransformer": {
+        "MSE": {
+          "mean": 0.262,
+          "std": 0.007
+        },
+        "MAE": {
+          "mean": 0.282,
+          "std": 0.008
+        }
+      },
+      "Crossformer": {
+        "MSE": {
+          "mean": 0.264,
+          "std": 0.003
+        },
+        "MAE": {
+          "mean": 0.321,
+          "std": 0.007
+        }
+      },
+      "TimesNet": {
+        "MSE": {
+          "mean": 0.264,
+          "std": 0.007
+        },
+        "MAE": {
+          "mean": 0.288,
+          "std": 0.006
+        }
+      },
+      "MICN": {
+        "MSE": {
+          "mean": 0.252,
+          "std": 0.002
+        },
+        "MAE": {
+          "mean": 0.311,
+          "std": 0.003
+        }
+      },
+      "DLinear": {
+        "MSE": {
+          "mean": 0.265,
+          "std": 0.004
+        },
+        "MAE": {
+          "mean": 0.317,
+          "std": 0.007
+        }
+      }
+    },
+    "Electricity": {
+      "CCMSI": {
+        "MSE": {
+          "mean": 0.164,
+          "std": 0.001
+        },
+        "MAE": {
+          "mean": 0.254,
+          "std": 0
+        }
+      },
+      "CALF": {
+        "MSE": {
+          "mean": 0.18,
+          "std": 0.004
+        },
+        "MAE": {
+          "mean": 0.269,
+          "std": 0.005
+        }
+      },
+      "Time-LLM": {
+        "MSE": {
+          "mean": 0.227,
+          "std": 0.005
+        },
+        "MAE": {
+          "mean": 0.311,
+          "std": 0.006
+        }
+      },
+      "GPT4TS": {
+        "MSE": {
+          "mean": 0.21,
+          "std": 0.006
+        },
+        "MAE": {
+          "mean": 0.292,
+          "std": 0.006
+        }
+      },
+      "PatchTST": {
+        "MSE": {
+          "mean": 0.223,
+          "std": 0.004
+        },
+        "MAE": {
+          "mean": 0.312,
+          "std": 0.003
+        }
+      },
+      "iTransformer": {
+        "MSE": {
+          "mean": 0.182,
+          "std": 0.003
+        },
+        "MAE": {
+          "mean": 0.273,
+          "std": 0.003
+        }
+      },
+      "Crossformer": {
+        "MSE": {
+          "mean": 0.25,
+          "std": 0.002
+        },
+        "MAE": {
+          "mean": 0.342,
+          "std": 0.004
+        }
+      },
+      "TimesNet": {
+        "MSE": {
+          "mean": 0.194,
+          "std": 0.008
+        },
+        "MAE": {
+          "mean": 0.297,
+          "std": 0.003
+        }
+      },
+      "MICN": {
+        "MSE": {
+          "mean": 0.189,
+          "std": 0
+        },
+        "MAE": {
+          "mean": 0.297,
+          "std": 0.002
+        }
+      },
+      "DLinear": {
+        "MSE": {
+          "mean": 0.219,
+          "std": 0.007
+        },
+        "MAE": {
+          "mean": 0.305,
+          "std": 0.006
+        }
+      }
+    },
+    "Traffic": {
+      "CCMSI": {
+        "MSE": {
+          "mean": 0.429,
+          "std": 0.007
+        },
+        "MAE": {
+          "mean": 0.279,
+          "std": 0.002
+        }
+      },
+      "CALF": {
+        "MSE": {
+          "mean": 0.445,
+          "std": 0.004
+        },
+        "MAE": {
+          "mean": 0.286,
+          "std": 0.004
+        }
+      },
+      "Time-LLM": {
+        "MSE": {
+          "mean": 0.543,
+          "std": 0.009
+        },
+        "MAE": {
+          "mean": 0.362,
+          "std": 0.004
+        }
+      },
+      "GPT4TS": {
+        "MSE": {
+          "mean": 0.495,
+          "std": 0.006
+        },
+        "MAE": {
+          "mean": 0.319,
+          "std": 0.005
+        }
+      },
+      "PatchTST": {
+        "MSE": {
+          "mean": 0.563,
+          "std": 0.007
+        },
+        "MAE": {
+          "mean": 0.369,
+          "std": 0.007
+        }
+      },
+      "iTransformer": {
+        "MSE": {
+          "mean": 0.435,
+          "std": 0.003
+        },
+        "MAE": {
+          "mean": 0.288,
+          "std": 0.003
+        }
+      },
+      "Crossformer": {
+        "MSE": {
+          "mean": 0.553,
+          "std": 0.005
+        },
+        "MAE": {
+          "mean": 0.309,
+          "std": 0.002
+        }
+      },
+      "TimesNet": {
+        "MSE": {
+          "mean": 0.623,
+          "std": 0.002
+        },
+        "MAE": {
+          "mean": 0.339,
+          "std": 0.003
+        }
+      },
+      "MICN": {
+        "MSE": {
+          "mean": 0.546,
+          "std": 0.006
+        },
+        "MAE": {
+          "mean": 0.324,
+          "std": 0.007
+        }
+      },
+      "DLinear": {
+        "MSE": {
+          "mean": 0.631,
+          "std": 0.003
+        },
+        "MAE": {
+          "mean": 0.387,
+          "std": 0.003
+        }
+      }
+    }
+  }
+}

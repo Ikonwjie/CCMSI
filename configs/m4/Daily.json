@@ -1,0 +1,13 @@
+{
+  "extends": "../base.json",
+  "task": "m4",
+  "data": "M4",
+  "root_path": "dataset/m4",
+  "data_path": "",
+  "frequency": "Daily",
+  "enc_in": 1,
+  "pred_len": 14,
+  "seq_len": 28,
+  "patch_len": 4,
+  "stride": 2
+}

@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-"""时间特征编码"""
-
 from typing import List
 
 import numpy as np
@@ -21,70 +18,54 @@ class TimeFeature:
 
 
 class SecondOfMinute(TimeFeature):
-    """秒编码为[-0.5, 0.5]之间的值"""
 
     def __call__(self, index: pd.DatetimeIndex) -> np.ndarray:
         return index.second / 59.0 - 0.5
 
 
 class MinuteOfHour(TimeFeature):
-    """分钟编码为[-0.5, 0.5]之间的值"""
 
     def __call__(self, index: pd.DatetimeIndex) -> np.ndarray:
         return index.minute / 59.0 - 0.5
 
 
 class HourOfDay(TimeFeature):
-    """小时编码为[-0.5, 0.5]之间的值"""
 
     def __call__(self, index: pd.DatetimeIndex) -> np.ndarray:
         return index.hour / 23.0 - 0.5
 
 
 class DayOfWeek(TimeFeature):
-    """星期编码为[-0.5, 0.5]之间的值"""
 
     def __call__(self, index: pd.DatetimeIndex) -> np.ndarray:
         return index.dayofweek / 6.0 - 0.5
 
 
 class DayOfMonth(TimeFeature):
-    """月中日期编码为[-0.5, 0.5]之间的值"""
 
     def __call__(self, index: pd.DatetimeIndex) -> np.ndarray:
         return (index.day - 1) / 30.0 - 0.5
 
 
 class DayOfYear(TimeFeature):
-    """年中日期编码为[-0.5, 0.5]之间的值"""
 
     def __call__(self, index: pd.DatetimeIndex) -> np.ndarray:
         return (index.dayofyear - 1) / 365.0 - 0.5
 
 
 class MonthOfYear(TimeFeature):
-    """月份编码为[-0.5, 0.5]之间的值"""
 
     def __call__(self, index: pd.DatetimeIndex) -> np.ndarray:
         return (index.month - 1) / 11.0 - 0.5
 
 
 class WeekOfYear(TimeFeature):
-    """年中周数编码为[-0.5, 0.5]之间的值"""
 
     def __call__(self, index: pd.DatetimeIndex) -> np.ndarray:
         return (index.isocalendar().week - 1) / 52.0 - 0.5
 
 
 def time_features_from_frequency_str(freq_str: str) -> List[TimeFeature]:
-    """
-    根据频率字符串返回适当的时间特征列表
-    
-    Parameters
-    ----------
-    freq_str
-        频率字符串，格式为 [multiple][granularity]，如 "12H", "5min", "1D" 等
-    """
 
     features_by_offsets = {
         offsets.YearEnd: [],
@@ -135,5 +116,4 @@ def time_features_from_frequency_str(freq_str: str) -> List[TimeFeature]:
 
 
 def time_features(dates, freq="h"):
-    """提取时间特征"""
     return np.vstack([feat(dates) for feat in time_features_from_frequency_str(freq)])

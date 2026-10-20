@@ -1,0 +1,9 @@
+{
+  "extends": "../base.json",
+  "data": "Weather",
+  "root_path": "dataset/weather",
+  "data_path": "weather.csv",
+  "enc_in": 21,
+  "batch_size": 16,
+  "eval_batch_size": 16
+}

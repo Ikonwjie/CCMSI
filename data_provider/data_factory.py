@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-"""数据工厂 - 提供数据加载接口"""
-
 from data_provider.data_loader import (
     Dataset_ETT_hour,
     Dataset_ETT_minute,
@@ -9,7 +6,6 @@ from data_provider.data_loader import (
 )
 from torch.utils.data import DataLoader
 
-# 数据集映射
 data_dict = {
     "ETTh1": Dataset_ETT_hour,
     "ETTh2": Dataset_ETT_hour,
@@ -22,7 +18,6 @@ data_dict = {
     "custom": Dataset_Custom,
 }
 
-# 多变量数据集映射（用于BALM_MedualTime）
 data_dict_multivariate = {
     "ETTh1": Dataset_Multivariate,
     "ETTh2": Dataset_Multivariate,
@@ -37,18 +32,6 @@ data_dict_multivariate = {
 
 
 def data_provider(args, flag, multivariate=False):
-    """
-    数据提供函数
-    
-    Args:
-        args: 参数对象
-        flag: 'train', 'val', 或 'test'
-        multivariate: 是否使用多变量数据集
-    
-    Returns:
-        data_set: 数据集对象
-        data_loader: 数据加载器
-    """
     if multivariate:
         Data = data_dict_multivariate.get(args.data, Dataset_Multivariate)
     else:
@@ -57,7 +40,6 @@ def data_provider(args, flag, multivariate=False):
     timeenc = 0 if args.embed != "timeF" else 1
     percent = args.percent if hasattr(args, 'percent') else 100
     
-    # 预生成数据的配置
     use_pregenerated = getattr(args, 'use_pregenerated', False)
     pregenerated_path = getattr(args, 'pregenerated_path', None)
 
@@ -72,7 +54,6 @@ def data_provider(args, flag, multivariate=False):
         batch_size = args.batch_size
         freq = args.freq
 
-    # 构建数据集参数
     dataset_kwargs = dict(
         root_path=args.root_path,
         data_path=args.data_path,
@@ -88,7 +69,6 @@ def data_provider(args, flag, multivariate=False):
         test_noise_seed=getattr(args, "test_noise_seed", 2025),
     )
     
-    # 如果是多变量数据集且使用预生成数据，添加额外参数
     if multivariate:
         dataset_kwargs['use_pregenerated'] = use_pregenerated
         dataset_kwargs['pregenerated_path'] = pregenerated_path

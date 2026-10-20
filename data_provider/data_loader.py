@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-"""数据加载器 - 基于 BALM-TSF"""
-
 import os
 import warnings
 import pickle
@@ -14,10 +11,9 @@ from utils.timefeatures import time_features
 warnings.filterwarnings("ignore")
 
 try:
-    from sklearn.preprocessing import StandardScaler  # type: ignore
+    from sklearn.preprocessing import StandardScaler
 except Exception:
     class StandardScaler:
-        """Fallback scaler when scikit-learn is unavailable."""
 
         def __init__(self):
             self.mean_ = None
@@ -40,7 +36,6 @@ except Exception:
 
 
 def _apply_deterministic_gaussian_noise(seq_x, noise_factor=0.0, noise_seed=2025, index=0):
-    """在评估阶段对输入窗口添加可复现的高斯噪声。"""
     noise_factor = float(noise_factor)
     if noise_factor <= 0:
         return seq_x
@@ -70,7 +65,6 @@ def _get_default_split_borders(data_path, total_len, seq_len):
 
 
 class Dataset_ETT_hour(Dataset):
-    """ETT小时级数据集"""
     def __init__(
         self,
         root_path,
@@ -200,7 +194,6 @@ class Dataset_ETT_hour(Dataset):
 
 
 class Dataset_ETT_minute(Dataset):
-    """ETT分钟级数据集"""
     def __init__(
         self,
         root_path,
@@ -331,7 +324,6 @@ class Dataset_ETT_minute(Dataset):
 
 
 class Dataset_Custom(Dataset):                                                                                                      
-    """自定义数据集"""
     def __init__(
         self,
         root_path,
@@ -458,7 +450,6 @@ class Dataset_Custom(Dataset):
 
 
 class Dataset_Multivariate(Dataset):
-    """多变量数据集 - 专为BALM_MedualTime设计"""
     def __init__(
         self,
         root_path,
@@ -507,7 +498,6 @@ class Dataset_Multivariate(Dataset):
 
         self.enc_in = self.data_x.shape[-1]
         
-        # 预生成的 prompt 和文本嵌入
         self.use_pregenerated = use_pregenerated
         self.pregenerated_data = None
         if use_pregenerated and pregenerated_path is not None:
@@ -517,18 +507,14 @@ class Dataset_Multivariate(Dataset):
         self.scaler = StandardScaler()
         df_raw = pd.read_csv(os.path.join(self.root_path, self.data_path))
 
-        # 判断是ETT数据集还是其他数据集
         if 'ETT' in self.data_path:
             if 'h' in self.data_path:
-                # ETT小时级
                 border1s = [0, 12 * 30 * 24 - self.seq_len, 12 * 30 * 24 + 4 * 30 * 24 - self.seq_len]
                 border2s = [12 * 30 * 24, 12 * 30 * 24 + 4 * 30 * 24, 12 * 30 * 24 + 8 * 30 * 24]
             else:
-                # ETT分钟级
                 border1s = [0, 12 * 30 * 24 * 4 - self.seq_len, 12 * 30 * 24 * 4 + 4 * 30 * 24 * 4 - self.seq_len]
                 border2s = [12 * 30 * 24 * 4, 12 * 30 * 24 * 4 + 4 * 30 * 24 * 4, 12 * 30 * 24 * 4 + 8 * 30 * 24 * 4]
         else:
-            # 非ETT数据集默认使用70/10/20，ILI使用固定官方常见切分
             border1s, border2s = _get_default_split_borders(
                 self.data_path,
                 len(df_raw),
@@ -541,14 +527,12 @@ class Dataset_Multivariate(Dataset):
         if self.set_type == 0:
             border2 = (border2 - self.seq_len) * self.percent // 100 + self.seq_len
 
-        # 提取数据列
         if self.features == "M" or self.features == "MS":
             cols_data = df_raw.columns[1:]
             df_data = df_raw[cols_data]
         elif self.features == "S":
             df_data = df_raw[[self.target]]
 
-        # 标准化
         if self.scale:
             train_data = df_data[border1s[0]: border2s[0]]
             self.scaler.fit(train_data.values)
@@ -556,7 +540,6 @@ class Dataset_Multivariate(Dataset):
         else:
             data = df_data.values
 
-        # 时间特征
         df_stamp = df_raw[["date"]][border1:border2]
         df_stamp["date"] = pd.to_datetime(df_stamp.date)
         if self.timeenc == 0:
@@ -576,8 +559,6 @@ class Dataset_Multivariate(Dataset):
         self.data_stamp = data_stamp
 
     def _load_pregenerated(self, pregenerated_path):
-        """加载预生成的 prompt 和文本嵌入"""
-        # 提取数据集名称（去掉后缀）
         data_name = self.data_path.split('.')[0]
         filename = f"{data_name}_{self.features}_sl{self.seq_len}_pl{self.pred_len}_{self.flag}.pkl"
         filepath = os.path.join(pregenerated_path, filename)
@@ -599,7 +580,6 @@ class Dataset_Multivariate(Dataset):
         r_begin = s_end - self.label_len
         r_end = r_begin + self.label_len + self.pred_len
         
-        # 返回所有变量 [seq_len, n_vars]
         seq_x = self.data_x[s_begin:s_end]
         seq_y = self.data_y[r_begin:r_end]
         seq_x_mark = self.data_stamp[s_begin:s_end]
@@ -613,7 +593,6 @@ class Dataset_Multivariate(Dataset):
                 index=index,
             )
         
-        # 如果使用预生成的数据，返回对应的 prompts 和 text_embeddings
         if self.use_pregenerated and self.pregenerated_data is not None:
             prompts = self.pregenerated_data['prompts'][index]
             text_embeddings = self.pregenerated_data['text_embeddings'][index]

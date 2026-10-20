@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-"""工具函数"""
-
 import numpy as np
 import torch
 import matplotlib.pyplot as plt
@@ -12,7 +9,6 @@ plt.switch_backend("agg")
 
 
 def adjust_learning_rate(accelerator, optimizer, scheduler, epoch, args, printout=True):
-    """调整学习率"""
     if args.lradj == "type1":
         lr_adjust = {epoch: args.learning_rate * (0.5 ** ((epoch - 1) // 1))}
     elif args.lradj == "type2":
@@ -41,7 +37,6 @@ def adjust_learning_rate(accelerator, optimizer, scheduler, epoch, args, printou
 
 
 class EarlyStopping:
-    """早停类"""
     def __init__(
         self, accelerator=None, patience=7, verbose=False, delta=0, save_mode=True
     ):
@@ -97,14 +92,12 @@ class EarlyStopping:
 
 
 class dotdict(dict):
-    """支持点符号访问的字典"""
     __getattr__ = dict.get
     __setattr__ = dict.__setitem__
     __delattr__ = dict.__delitem__
 
 
 class StandardScaler:
-    """标准化器"""
     def __init__(self, mean, std):
         self.mean = mean
         self.std = std
@@ -117,7 +110,6 @@ class StandardScaler:
 
 
 def del_files(dir_path):
-    """删除目录"""
     shutil.rmtree(dir_path)
 
 
@@ -132,7 +124,6 @@ def vali(
     epoch,
     mode="vali",
 ):
-    """验证函数（适配BALM_MedualTime模型 - 时间序列预测任务）"""
     total_loss = []
     total_mae_loss = []
     total_mape_loss = []
@@ -147,14 +138,12 @@ def vali(
             batch_x = batch_x.float().to(accelerator.device)
             batch_y = batch_y.float()
             
-            # 模型前向传播（评估模式）- 输出 [batch, pred_len, n_vars]
             outputs = model(batch_x, mode='eval')
             
             outputs, batch_y = accelerator.gather_for_metrics((outputs, batch_y))
 
             f_dim = -1 if args.features == "MS" else 0
             
-            # 提取预测结果和目标
             if args.features == "MS":
                 outputs = outputs[:, :, f_dim:]
             
@@ -206,7 +195,6 @@ def vali_forecast(
     epoch,
     mode="vali",
 ):
-    """验证函数（适配预测任务）"""
     total_loss = []
     total_mae_loss = []
     preds = []
@@ -220,7 +208,6 @@ def vali_forecast(
             batch_x = batch_x.float().to(accelerator.device)
             batch_y = batch_y.float().to(accelerator.device)
             
-            # 模型前向传播
             outputs = model(batch_x, mode='eval')
             
             f_dim = -1 if args.features == "MS" else 0
